@@ -1,0 +1,16 @@
+server:
+  port: 9090
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: my_route
+          uri: http://localhost:8080
+          predicates:
+            - Path=/logs/**
+          filters:
+            - PrefixPath=/api/v1
+            - name: AddResponseHeader
+              args:
+                name: X-Test-Header
+                value: testValue
